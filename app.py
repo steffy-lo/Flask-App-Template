@@ -6,8 +6,8 @@ from pymongo import MongoClient
 # if we execute this Python file directly, __name__ == "__main__"
 app = Flask(__name__)
 DEBUG = 1
+
 mongo_uri = os.environ.get('MONGODB_URI') or 'mongodb://localhost:27017/'
-domain = 'http://localhost:5000/' if DEBUG else 'https://simple-flask-app-tutorial.herokuapp.com'
 client = MongoClient(mongo_uri)
 
 # A single instance of MongoDB can support multiple independent databases.
@@ -76,6 +76,8 @@ def get_project():
 if __name__ == "__main__":
     if DEBUG:
         app.run(debug=True)
+        domain = 'http://localhost:5000/'
     else:
         app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+        domain = 'https://simple-flask-app-tutorial.herokuapp.com'
 
