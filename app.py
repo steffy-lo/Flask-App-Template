@@ -5,7 +5,9 @@ from pymongo import MongoClient
 # __name__ is a special variable in Python that refers to the name of the module
 # if we execute this Python file directly, __name__ == "__main__"
 app = Flask(__name__)
+DEBUG = 1
 mongo_uri = os.environ.get('MONGODB_URI') or 'mongodb://localhost:27017/'
+domain = 'http://localhost:5000/' if DEBUG else 'https://simple-flask-app-tutorial.herokuapp.com'
 client = MongoClient(mongo_uri)
 
 # A single instance of MongoDB can support multiple independent databases.
@@ -65,12 +67,15 @@ def get_project():
 
     description = request.args.get('description')
     if not description:
-        requests.delete('https://simple-flask-app-tutorial.herokuapp.com/del_project/' + title)
+        requests.delete(domain + '/del_project/' + title)
     else:
-        requests.patch('https://simple-flask-app-tutorial.herokuapp.com/update_project/' + title + '/' + description)
+        requests.patch(domain + '/update_project/' + title + '/' + description)
     return redirect('/')
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+    if DEBUG:
+        app.run(debug=True)
+    else:
+        app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
 
