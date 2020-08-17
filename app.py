@@ -65,9 +65,9 @@ def get_project():
 
     description = request.args.get('description')
     if not description:
-        requests.delete('http://simple-flask-app-tutorial/del_project/' + title)
+        requests.delete('https://simple-flask-app-tutorial.herokuapp.com/del_project/' + title)
     else:
-        requests.patch('http://simple-flask-app-tutorial/update_project/' + title + '/' + description)
+        requests.patch('https://simple-flask-app-tutorial.herokuapp.com/update_project/' + title + '/' + description)
     return redirect('/')
 
 
