@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Projects</h1>
+    {% for proj in projects %}
+        <!-- to print out variables, we need to use double curvy brackets -->
+        <h2>{{ proj.title }}</h2>
+        <p>{{ proj.description }}</p>
+    {% endfor %}
+{% endblock %}
